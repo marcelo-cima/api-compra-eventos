@@ -252,7 +252,7 @@ Parâmetro opcional do tipo query chamado "maxPreco"
 
 ### Criar uma conta
 
-#### `POST` `/contas`
+#### `POST` `/usuarios`
 
 Esse endpoint deverá cadastrar um novo usuário no sistema
 
@@ -285,7 +285,7 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
 - ### Exemplo de requisição
 
 ```json
-// POST /usuario
+// POST /usuarios
 {
   "nome": "José",
   "email": "jose@email.com",
@@ -320,7 +320,7 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
 
 ### Fazer login
 
-#### `POST` `/contas`
+#### `POST` `/login`
 
 Esse endpoint será responsável pelo login do usuário
 
@@ -369,7 +369,7 @@ O corpo (body) deverá possuir um objeto com as seguintes propriedades (respeita
 - ### Exemplo de requisição
 
 ```json
-// POST /usuario
+// POST /login
 {
   "nome": "José",
   "email": "jose@email.com"
