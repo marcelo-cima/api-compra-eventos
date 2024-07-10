@@ -10,7 +10,7 @@ const faltaCampo = { mensagem: "Todos os campos são obrigatórios" }
 
 // Cadastro
 export const cadastrar = (req: Request, res: Response) => {
-    const { id, nome, email, senha } = req.body
+    const { nome, email, senha } = req.body
     
     // Campo nao preenchido
     if(!nome || !email || !senha) {
@@ -34,12 +34,9 @@ export const cadastrar = (req: Request, res: Response) => {
     }
     bancoDeDados.usuarios.push(novoUsuario)
 
-    // Retorna o que foi criado
-    return res.status(201).json({
-        id,
-        nome,
-        email
-    })
+    // Retorna infos de cadastro
+    const { senha: _, ...loginCompleto } = novoUsuario
+    return res.status(201).json(loginCompleto)
 }
 
 
@@ -47,28 +44,56 @@ export const cadastrar = (req: Request, res: Response) => {
 
 export const login = (req: Request, res: Response) => {
     const { email, senha } = req.body
-    const senhaCript = criptografarSenha(senha)
 
-    const emailUsuario = bancoDeDados.usuarios.find((item) => item.email === email)
-    const senhaUsuario = bancoDeDados.usuarios.find((item) => item.senha === senhaCript)
-
-    const idUsuario = bancoDeDados.usuarios.find((item) => {
-        if (item.email === email){
-            return item.id
-        }
-    }) 
-
+    // Campo nao preenchido
     if(!email || !senha) {
-        return res.status(400).json(faltaCampo)
+        return res.status(401).json(faltaCampo)
+    }
+    
+    // Busca de Usuario
+    const usuarioLogado = bancoDeDados.usuarios.find((usuario) => usuario.email === email)
+    
+    // Email invalido
+    if(!usuarioLogado){
+        return res.status(400).json({mensagem: "E-mail ou senha inválidos"})
     }
 
-    if(emailUsuario && senhaUsuario) {
-        return res.json({
-            comprovante: `${senha}/${idUsuario}`
-        })
-    }
+    // const emailBancoDeDados = usuarioLogado?.email
+    const senhaBancoDeDados = usuarioLogado?.senha
 
-    return res.status(400).json({
-        mensagem: "E-mail ou senha inválidos"
-    })
+    // Senha invalida
+    if(senhaBancoDeDados != criptografarSenha(senha)){
+        return res.status(400).json({mensagem: "E-mail ou senha inválidos"})
+    }
+  
+
+    console.log()
+    return res.send('ok')
+
+
+    // if (!emailUsuario || !senhaUsuario) {
+    //     return res.status(400).json({
+    //         mensagem: "E-mail ou senha inválidos"
+    //     })
+    // }
+
+    // const idUsuario = bancoDeDados.usuarios.find((item) => {
+    //     if (item.email === email){
+    //         return item.id
+    //     }
+    // }) 
+
+    // if(!email || !senha) {
+    //     return res.status(400).json(faltaCampo)
+    // }
+
+    // if(emailUsuario && senhaUsuario) {
+    //     return res.json({
+    //         comprovante: `${senha}/${idUsuario}`
+    //     })
+    // }
+
+    // return res.status(400).json({
+    //     mensagem: "E-mail ou senha inválidos"
+    // })
 }
