@@ -12,7 +12,7 @@ rotas.get('/eventos', filtroChecarEventos, eventos)
 
 rotas.post('/usuarios', cadastrar)
 
-rotas.get('/login', login)
+rotas.post('/login', login)
 
 rotas.use(youShallNotPass)
 
