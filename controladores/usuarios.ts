@@ -3,6 +3,7 @@ import {v4 as uuidv4 } from 'uuid';
 import bancoDeDados from "../src/bancoDeDados";
 import TUsuario from "../src/tipos/Usuario";
 import { criptografarSenha } from "../auxiliares/criptografia";
+import fraseSecreta from "../src/fraseSecreta";
 
 // Mensagens de erro
 const faltaCampo = { mensagem: "Todos os campos são obrigatórios" }
@@ -14,12 +15,12 @@ export const cadastrar = (req: Request, res: Response) => {
     
     // Campo nao preenchido
     if(!nome || !email || !senha) {
-        return res.status(401).json(faltaCampo)
+        return res.status(400).json(faltaCampo)
     }
 
     // Email informado ja existe
     if(bancoDeDados.usuarios.find((item) => item.email === email)){
-        return res.status(401).json({
+        return res.status(400).json({
             mensagem: "E-mail já cadastrado"
     })
     }
@@ -47,10 +48,10 @@ export const login = (req: Request, res: Response) => {
 
     // Campo nao preenchido
     if(!email || !senha) {
-        return res.status(401).json(faltaCampo)
+        return res.status(400).json(faltaCampo)
     }
     
-    // Busca de Usuario
+    // Busca usuario
     const usuarioLogado = bancoDeDados.usuarios.find((usuario) => usuario.email === email)
     
     // Email invalido
@@ -66,34 +67,7 @@ export const login = (req: Request, res: Response) => {
         return res.status(400).json({mensagem: "E-mail ou senha inválidos"})
     }
   
-
-    console.log()
-    return res.send('ok')
-
-
-    // if (!emailUsuario || !senhaUsuario) {
-    //     return res.status(400).json({
-    //         mensagem: "E-mail ou senha inválidos"
-    //     })
-    // }
-
-    // const idUsuario = bancoDeDados.usuarios.find((item) => {
-    //     if (item.email === email){
-    //         return item.id
-    //     }
-    // }) 
-
-    // if(!email || !senha) {
-    //     return res.status(400).json(faltaCampo)
-    // }
-
-    // if(emailUsuario && senhaUsuario) {
-    //     return res.json({
-    //         comprovante: `${senha}/${idUsuario}`
-    //     })
-    // }
-
-    // return res.status(400).json({
-    //     mensagem: "E-mail ou senha inválidos"
-    // })
+    // Cria comprovante
+    const idBancoDeDados = usuarioLogado.id
+    return res.json({comprovante: `${fraseSecreta}/${idBancoDeDados}`})
 }
