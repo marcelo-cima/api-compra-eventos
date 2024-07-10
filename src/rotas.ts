@@ -2,6 +2,7 @@ import { Router } from "express";
 import { inicio, eventos } from "../controladores/controladores";
 import { filtroChecarEventos, youShallNotPass } from "../intermediarios/intermediarios";
 import { cadastrar, login } from "../controladores/usuarios";
+import { comprar, listarCompras } from "../controladores/comprarEvento";
 
 
 const rotas = Router();
@@ -16,8 +17,8 @@ rotas.post('/login', login)
 
 rotas.use(youShallNotPass)
 
-rotas.get('/chegou', (req, res) => {
-    return res.send('boom chaka laka')
-})
+rotas.post('/compras', comprar)
+
+rotas.get('/compras', listarCompras)
 
 export default rotas;

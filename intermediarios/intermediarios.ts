@@ -20,13 +20,15 @@ export const filtroChecarEventos = (req: Request, res: Response, next: NextFunct
     next()
 }
 
+export const decriptComprovante = (comprovante: string) => {
+    return comprovante.split("/").join()
+}
+
 // Nao entra sem login
 export const youShallNotPass = (req: Request, res: Response, next: NextFunction) => {
     const { comprovante } = req.query
 
-    const idUsuario = String(comprovante).split("/").join()
-    
-    console.log(idUsuario)
+    const idUsuario = decriptComprovante(String(comprovante))
 
     const encontrarComprovante = bancoDeDados.usuarios.find((usuario) => usuario.id === idUsuario)
 
