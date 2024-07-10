@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { Express, NextFunction, Request, Response} from "express";
 import TEvento from '../src/tipos/Evento';
 import bancoDeDados from '../src/bancoDeDados';
+import fraseSecreta from '../src/fraseSecreta';
 
 // Filtrar por preço maximo
 export const filtroChecarEventos = (req: Request, res: Response, next: NextFunction) => {
@@ -21,9 +22,16 @@ export const filtroChecarEventos = (req: Request, res: Response, next: NextFunct
 
 // Nao entra sem login
 export const youShallNotPass = (req: Request, res: Response, next: NextFunction) => {
-    const login: string = 'a'
-    if(!login) {
-    return res.status(401).send('Voce precisa estar logado para acessar essa pagina')
+    const { comprovante } = req.query
+
+    const idUsuario = String(comprovante).split("/").join()
+    
+    console.log(idUsuario)
+
+    const encontrarComprovante = bancoDeDados.usuarios.find((usuario) => usuario.id === idUsuario)
+
+    if(!comprovante || !encontrarComprovante) {
+    return res.status(401).send('Falha na autenticação')
     }
 
     next()

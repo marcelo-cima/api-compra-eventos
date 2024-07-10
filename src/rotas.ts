@@ -16,4 +16,8 @@ rotas.post('/login', login)
 
 rotas.use(youShallNotPass)
 
+rotas.get('/chegou', (req, res) => {
+    return res.send('boom chaka laka')
+})
+
 export default rotas;
