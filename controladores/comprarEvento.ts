@@ -3,6 +3,7 @@ import {v4 as uuidv4 } from 'uuid';
 import bancoDeDados from "../src/bancoDeDados";
 import TCompra from "../src/tipos/Compra";
 import { decriptComprovante } from "../intermediarios/intermediarios";
+import { eventos } from "./controladores";
 
 type TCompraFeita = {
     idCompra: string,
@@ -58,10 +59,10 @@ export const listarCompras = (req: Request, res: Response) => {
     const idUsuario = decriptComprovante(String(comprovante))
 
     // Filtrar compras do usuario
-    const idsComprasUsuario: TCompra[] = compras.filter((compra) => compra.id_usuario === idUsuario)
+    const comprasUsuario: TCompra[] = compras.filter((compra) => compra.id_usuario === idUsuario)
     
     // Adicionar infos ao recibo
-    const listaComprasUsuario = idsComprasUsuario.map(recibo => {
+    const listaComprasUsuario = comprasUsuario.map(recibo => {
         const eventoUsuario = eventos.find(evento => evento.id === recibo.id_evento) 
         return {
             idCompra: recibo.id,
@@ -74,8 +75,32 @@ export const listarCompras = (req: Request, res: Response) => {
         })
 
     return res.send(listaComprasUsuario)
+}
 
-    // 1 - identificar quem eh o user => comprovante de login
-    // 2 - listar as compras do user
 
+// Deletar compras
+
+export const deletarCompras = (req: Request, res: Response) => {
+    const { id: idCompra } = req.params
+    const { comprovante } = req.query
+    const idUsuario = decriptComprovante(String(comprovante))
+
+    // Filtrar compras do usuario
+    const comprasUsuario: TCompra[] = bancoDeDados.compras.filter(compra => compra.id_usuario === idUsuario)
+    
+    // Encontra compra
+    const encontrarCompra = comprasUsuario.find(compra => compra.id === idCompra)
+    const indexCompra = comprasUsuario.findIndex(compra => compra.id === idCompra)
+
+    // Se nao encontra compra
+    if(!encontrarCompra) {
+        return res.status(404).json({
+            mensagem: "Evento não encontrado"
+        })
+    }
+
+    // Deleta compra
+    comprasUsuario.splice(indexCompra, 1)
+
+    return res.status(204).send()
 }
