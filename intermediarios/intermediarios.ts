@@ -33,7 +33,9 @@ export const youShallNotPass = (req: Request, res: Response, next: NextFunction)
     const encontrarComprovante = bancoDeDados.usuarios.find((usuario) => usuario.id === idUsuario)
 
     if(!comprovante || !encontrarComprovante) {
-    return res.status(401).send('Falha na autenticação')
+    return res.status(401).json({
+        mensagem: 'Falha na autenticação'
+    })
     }
 
     next()

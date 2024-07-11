@@ -23,7 +23,9 @@ export const comprar = (req: Request, res: Response) => {
 
     // Falta id
     if (!idEvento){
-        return res.status(400).json({mensagem: "O identificador do evento é obrigatório"})
+        return res.status(400).json({
+            mensagem: "O identificador do evento é obrigatório"
+        })
     }
 
     // Procura evento
@@ -74,7 +76,7 @@ export const listarCompras = (req: Request, res: Response) => {
             }
         })
 
-    return res.send(listaComprasUsuario)
+    return res.json(listaComprasUsuario)
 }
 
 

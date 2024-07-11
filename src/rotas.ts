@@ -15,12 +15,10 @@ rotas.post('/usuarios', cadastrar)
 
 rotas.post('/login', login)
 
-rotas.use(youShallNotPass)
+rotas.post('/compras', youShallNotPass, comprar)
 
-rotas.post('/compras', comprar)
+rotas.get('/compras', youShallNotPass, listarCompras)
 
-rotas.get('/compras', listarCompras)
-
-rotas.delete('/compras/:id', deletarCompras)
+rotas.delete('/compras/:id', youShallNotPass, deletarCompras)
 
 export default rotas;
