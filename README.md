@@ -1,40 +1,22 @@
-# Desafio de API REST
+# API de Criação de Resumos
 
-## Instruções para entrega
+## Overview
 
-1. Faça o fork deste repositório
-2. Clone o repositório forkado
-3. Edite o final deste README colocando o seu nome no local indicado (não é necessário clonar o repositório. Você pode fazer esse passo pelo próprio GitHub)
-4. Abra um pull request colocando o seu nome e sobrenome no título do pull request
-5. Copie o link do seu pull request (PR) e cole-o na Plataforma do Aluno no local indicado para a entrega (o link do pull request termina com "/pull/`NUMERO_DO_PULL_REQUEST`")
+Este foi o 3º desafio desenvolvido durante minhas aulas na Cubos Academy. A primeira vez que crio um projeto em torno da criação de API em padrão REST, este desafio nos viu elaborando uma API de compra de ingressos para eventos. Vários conhecimentos recenmente adquiridos foram utilizados para elaborar esse desafio.
 
-#### ⚠️ Importante: o passo a passo acima visa priorizar a entrega do desafio logo nos primeiros minutos. Se desejar, pode deixar para fazer o pull request (PR) após o término do projeto
+## Competências treinadas
 
-#### ⚠️ Importante: você NÃO deve abrir mais de um pull request. Ao atualizar a branch main do seu repositório remoto (git push), seu PR será atualizado também
-
-#### ⚠️ Importante: se o pull request não for criado e enviado na plataforma, o feedback não será fornecido, e o desafio constará como não entregue
-
-## Primeiros passos
-
-1. Clone o projeto
-2. Use o comando `npm install` para instalar as dependências
-3. A porta configurada para sua aplicação rodar é a 3000. Caso deseje trocá-la, mude o valor da variável "PORTA" que está dentro do arquivo ".env"
-4. Use o comando `npm run dev` para rodar o projeto
-
-#### ⚠️ Importante: repare que o projeto já inicia com uma estrutura inicial. Você não deve mexer nessa estrutura
-
-## Como testar seu código e saber a nota
-
-Para testar seu código, use o comando:
-
-- `npm run test`: esse comando irá mostrar no terminal sua nota e irá gerar uma pasta chamada "resultados". Dentro da pasta terá um arquivo chamado "relatorio.html", que é um relatório detalhando os resultados dos testes. Esse relatório será aberto automaticamente no seu navegador
-
-#### ⚠️ Importante: se por algum motivo o relatório não for aberto automaticamente no seu navegador, sugerimos que instale uma extensão no VS Code chamada "Live Server". Após instalada, clique com o botão direito em cima do arquivo "relatorio.html" e clique em "Abrir com Live Server" ("Open with Live Server")
-
-## Dicas
-
-- Faça commits regulares
-- Quando terminar, lembre-se de atualizar seu repositório remoto (`git push`)
+- Testes Automatizados
+- Primeiro Servidor
+- GitHub
+- Rotas, Intermediários e Controladores
+- API REST
+- Orientação a Objetos
+- Prática de API REST Orientada a Objetos
+- Pesquisa e leitura de documentações
+- Assincronismo
+- Prática de API com Assincronismo
+- Tratamento de Erros com Herança e Polimorfismo
 
 ## Descrição do desafio
 
